@@ -2,4 +2,8 @@
 
 # zaps_bankrobbery
 Lua54 Bank Robbery RedM Script.
+
+
+
+
 Support: https://discord.gg/cfxdev
