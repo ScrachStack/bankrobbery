@@ -82,6 +82,7 @@ function zapsupdatee()
     end, "GET", nil, json.encode({}), {})
     end
     AddEventHandler('onResourceStart', function(resource)
+                if resource == GetCurrentResourceName() then
         if resource == 'zaps_bankrobbery' then
             zapsupdatee()
         else 
