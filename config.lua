@@ -1,5 +1,5 @@
 Config = {}
-
+Config.Lang = 'en'
 Config.robberyTime = 5
 Config.rewardAmount = 1000
 Config.maxDistance = 30.0
