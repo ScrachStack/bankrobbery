@@ -5,5 +5,8 @@ Lua54 Bank Robbery RedM Script.
 
 
 
+Leave a follow for a ``🍪``
+
+
 
 Support: https://discord.gg/cfxdev
