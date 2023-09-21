@@ -81,12 +81,12 @@ function zapsupdatee()
         end
     end, "GET", nil, json.encode({}), {})
     end
-    AddEventHandler('onResourceStart', function(resource)
-                if resource == GetCurrentResourceName() then
-        if resource == 'zaps_bankrobbery' then
-            zapsupdatee()
-        else 
-            print("[ALERT!!! Please rename your resource to zaps_bankrobbery") -- Please do not edit this is how I keep track of how many servers use it.
-        end
-    end)
-
+  AddEventHandler('onResourceStart', function(resource)
+    if resource == GetCurrentResourceName() then
+if resource == 'zaps_bankrobbery' then
+zapsupdatee()
+else 
+print("[ALERT!!! Please rename your resource to zaps_bankrobbery") -- Please do not edit this is how I keep track of how many servers use it.
+end
+end
+end)
