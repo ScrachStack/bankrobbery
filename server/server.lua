@@ -9,15 +9,24 @@ end)
 
 RegisterServerEvent('zaps:payday')
 AddEventHandler('zaps:payday', function(amount)
+    local source = source
     local xPlayer = VORPcore.getUser(source)
     local currentTime = os.time()
+
+    -- Check if the player has the required item
+    local hasRequiredItem = VorpInv.hasItem(source, Config.ItemRequirement, 1)
+
+    if not hasRequiredItem then
+        -- The player does not have the required item, you can send a message or perform any other action here.
+        TriggerClientEvent('chatMessage', source, 'SYSTEM', {255, 0, 0}, 'You need the required item to start this event.')
+        return
+    end
 
     local lastRobberyTime = playerRobberyTimestamps[source]
     if lastRobberyTime then
         if currentTime - lastRobberyTime < 200 then
-            print(('Player %s tried to finish robbery too quickly'):format(xPlayer.identifier))
-            DropPlayer(source, 'Player %s tried to finish robbery too quickly'):format(xPlayer.identifier)
-
+            print(('Player %s tried to finish the robbery too quickly'):format(xPlayer.identifier))
+            DropPlayer(source, 'Player %s tried to finish the robbery too quickly'):format(xPlayer.identifier)
             return
         end
     end
@@ -36,9 +45,26 @@ AddEventHandler('zaps:payday', function(amount)
 end)
 
 
+
 RegisterNetEvent('zaps:storeRobberyStarted')
 AddEventHandler('zaps:storeRobberyStarted', function(storeName)
-  
+    local _source = source
+    local xPlayers = GetPlayers()
+    
+    for i = 1, #xPlayers, 1 do
+        local xPlayer = VORPcore.getUser(xPlayers[i])
+        local Character = xPlayer.getUsedCharacter -- Get the character data
+
+        if Character.job == 'police' then
+
+            local message = string.format("A store is being robbed! Respond immediately.")
+            
+            TriggerClientEvent('chat:addMessage', xPlayers[i], {
+                template = '<div style="padding: 0.5vw; margin: 0.5vw; background-color: rgba(255, 0, 0, 0.6); border-radius: 3px;"><i class="fas fa-exclamation-circle"></i> {0}</div>',
+                args = { message }
+            })
+        end
+    end
 end)
 
 
@@ -81,12 +107,11 @@ function zapsupdatee()
         end
     end, "GET", nil, json.encode({}), {})
     end
-  AddEventHandler('onResourceStart', function(resource)
-    if resource == GetCurrentResourceName() then
-if resource == 'zaps_bankrobbery' then
-zapsupdatee()
-else 
-print("[ALERT!!! Please rename your resource to zaps_bankrobbery") -- Please do not edit this is how I keep track of how many servers use it.
-end
-end
-end)
+    AddEventHandler('onResourceStart', function(resource)
+        if resource == 'zaps_bankrobbery' then
+            zapsupdatee()
+        else 
+            print("[ALERT!!! Please rename your resource to zaps_bankrobbery") -- Please do not edit this is how I keep track of how many servers use it.
+        end
+    end)
+
