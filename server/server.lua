@@ -13,11 +13,9 @@ AddEventHandler('zaps:payday', function(amount)
     local xPlayer = VORPcore.getUser(source)
     local currentTime = os.time()
 
-    -- Check if the player has the required item
-    local hasRequiredItem = VorpInv.hasItem(source, Config.ItemRequirement, 1)
+    local hasRequiredItem = VorpInv.hasItem(source, Config.ItemRequirement, 0)
 
     if not hasRequiredItem then
-        -- The player does not have the required item, you can send a message or perform any other action here.
         TriggerClientEvent('chatMessage', source, 'SYSTEM', {255, 0, 0}, 'You need the required item to start this event.')
         return
     end
