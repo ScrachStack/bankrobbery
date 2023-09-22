@@ -13,9 +13,10 @@ AddEventHandler('zaps:payday', function(amount)
     local xPlayer = VORPcore.getUser(source)
     local currentTime = os.time()
 
-    local hasRequiredItem = VorpInv.hasItem(source, Config.ItemRequirement, 0)
+    local hasRequiredItem = Inventory.getItemCount(source, Config.ItemRequirement )
 
-    if not hasRequiredItem then
+
+    if  hasRequiredItem > 1 then
         TriggerClientEvent('chatMessage', source, 'SYSTEM', {255, 0, 0}, 'You need the required item to start this event.')
         return
     end
